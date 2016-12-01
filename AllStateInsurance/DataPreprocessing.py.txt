@@ -1,0 +1,19 @@
+##############################
+#@author : Ashutosh Bhargave.
+#Import libraries
+import pandas as pd
+##############################
+
+#Load the training dataset
+data = pd.read_csv("..\\All State Insurance\\train.csv")
+
+#Find the columns who are categorical. THe data type of these columns is "object"
+category_columns = data.select_dtypes(['object']).columns
+
+#Convert the data type of each column to "category"
+for column_name in category_columns:
+    data[column_name] = data[column_name].astype('category')
+
+#Now convert categorical columns to its numerical codes, cat.codes
+category_columns = data.select_dtypes(['category']).columns
+data[category_columns] = data[category_columns].apply(lambda x: x.cat.codes)
